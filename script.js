@@ -7,11 +7,11 @@ let values = [] //api data
 let xScale 
 let yScale
 
-let width = 1200
+let width = 1000
 let height = 600
 let padding = 60
 
-let svg = d3.select('svg')
+let svg = d3.select('#main')
 let tooltip = d3.select('#tooltip')
 
 const drawCanvas = () => {
@@ -73,8 +73,15 @@ const plotHeatMap = () => {
         })
         .on('mouseover', item => {
             tooltip.style('visibility', 'visible')
+            let itemdotmonth = item.month
+            function getMonth(itemdotmonth) {
+                const date = new Date();
+                date.setMonth(itemdotmonth - 1);
+              
+                return date.toLocaleString('en-US', { month: 'long' });
+              }
             if (item.year != '') {
-                tooltip.text(`${item.year} ${item.month} ${item.variance}`)
+                tooltip.html(`${item.year} ${getMonth(item.month)}: ${8.66 + item.variance}℃`)
                 tooltip.attr('data-year', item.year)
             } else {
                 return ''
