@@ -1,5 +1,18 @@
-let url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json'
-let req = new XMLHttpRequest
+//let url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json'
+//let req = new XMLHttpRequest
+fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json')
+.then(res => res.json())
+.then(data => {
+    values = data;
+    mv = values.monthlyVariance
+    baseTemp = values.baseTemperature
+    drawCanvas()
+    generateScales()
+    plotHeatMap()
+    generateAxis()
+})
+.catch(error => console.error(error))
+
 let mv;
 let baseTemp;
 let values = [] //api data
@@ -108,7 +121,7 @@ const generateAxis = () => {
         .attr('transform', `translate(${padding}, 0)`)
 }
 
-req.open('GET', url, true)
+/*req.open('GET', url, true)
 req.onload = () => {
     values = JSON.parse(req.responseText)
     console.log(values)
@@ -119,4 +132,4 @@ req.onload = () => {
     plotHeatMap()
     generateAxis()
 }
-req.send()
+req.send()*/
